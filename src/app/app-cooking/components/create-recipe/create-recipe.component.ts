@@ -1,0 +1,18 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+	selector: 'app-create-recipe',
+	templateUrl: './create-recipe.component.html',
+	styleUrls: ['./create-recipe.component.scss'],
+})
+export class CreateRecipeComponent implements OnInit {
+	kakonerAge = 27;
+	kakonerData = 'This is kakoner data';
+	showData = true;
+
+	constructor() {}
+
+	ngOnInit(): void {
+		console.log('Hello world');
+	}
+}
