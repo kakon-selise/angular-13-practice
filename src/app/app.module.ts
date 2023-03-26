@@ -17,6 +17,8 @@ import { StartGameComponent } from './app-playing/components/start-game/start-ga
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material/material.module';
+import { AppDataTableComponent } from './app-data-table/app-data-table.component';
+import { AppHomePageComponent } from './app-home-page/app-home-page.component';
 
 @NgModule({
 	declarations: [
@@ -26,6 +28,8 @@ import { MaterialModule } from './shared/material/material.module';
 		StartGameComponent,
 		NavigationComponent,
 		FooterComponent,
+  AppDataTableComponent,
+  AppHomePageComponent,
 	],
 	imports: [
 		BrowserModule,

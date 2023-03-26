@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,6 +22,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -52,6 +54,8 @@ const MaterialComponents = [
 	MatTabsModule,
 	MatTooltipModule,
 	MatSidenavModule,
+	MatSortModule,
+	MatPaginatorModule,
 ];
 
 @NgModule({
