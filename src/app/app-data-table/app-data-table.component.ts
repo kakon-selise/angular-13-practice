@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -29,13 +30,24 @@ const ELEMENT_DATA: PeriodicElement[] = [
 	styleUrls: ['./app-data-table.component.scss'],
 })
 export class AppDataTableComponent implements OnInit, AfterViewInit {
-	displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-	dataSource = new MatTableDataSource(ELEMENT_DATA);
+	tableData:any[] = [];
+	
+	displayedColumns: string[] = ['body', 'title'];
+	dataSource = new MatTableDataSource(this.tableData);
 
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	constructor() {}
+	constructor(private http:HttpClient) {}
+
+	getTableData(){
+		this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe((data:any)=>{
+			this.tableData = data;
+			console.log(data);
+			this.dataSource = new MatTableDataSource(this.tableData);
+		})
+	}
+	
 
 	getRowData(row: PeriodicElement) {
 		console.log(row);
@@ -45,7 +57,9 @@ export class AppDataTableComponent implements OnInit, AfterViewInit {
 		this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.getTableData();
+	}
 
 	ngAfterViewInit(): void {
 		this.dataSource.sort = this.sort;

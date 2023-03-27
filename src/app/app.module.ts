@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { LayoutModule } from '@angular/cdk/layout';
+import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -48,6 +49,7 @@ import { MaterialModule } from './shared/material/material.module';
 		MatIconModule,
 		MatListModule,
 		FlexLayoutModule,
+		HttpClientModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
