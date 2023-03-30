@@ -13,6 +13,7 @@ export class AuthService {
 	signInUrl = 'http://input.quizhero.easymemo.net/api/v1/auth/login';
 	user = new BehaviorSubject<User>(null!);
 	isLoggedIn = new Subject();
+	checktest: boolean;
 
 	constructor(private http: HttpClient, private errorService: ErrorService, private router: Router) {}
 
@@ -56,13 +57,11 @@ export class AuthService {
 
 	autoSignIn() {
 		const userInfo = JSON.parse(localStorage.getItem('user')!);
-
 		if (!userInfo) return;
-
 		const loggedInUser = new User(userInfo.email, userInfo.token, userInfo.name);
-
 		this.user.next(loggedInUser);
 		this.isLoggedIn.next(true);
+		this.router.navigate(['/quiz']);
 	}
 
 	signOut() {

@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { AuthComponent } from './app-auth/components/auth/auth.component';
 import { FooterComponent } from './app-layouts/footer/footer.component';
 import { NavigationComponent } from './app-layouts/navigation/navigation.component';
@@ -35,7 +36,9 @@ import { MaterialModule } from './shared/material/material.module';
 		MatSidenavModule,
 		MatIconModule,
 		MatListModule,
-		HttpClientModule
+		HttpClientModule,
+		CKEditorModule
+		
 	],
 	providers: [],
 	bootstrap: [AppComponent],

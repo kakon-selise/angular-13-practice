@@ -1,5 +1,9 @@
 <div>Value: {{ addQuestionForm.value | json }}</div>
 
+<h1>Hello world</h1>
+<ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
+
+
 <form [formGroup]="addQuestionForm" (submit)="onAddQuestionSubmit()">
 	<div class="add-new-button">
 		<button mat-raised-button color="primary" (click)="onAddNewQuestion()">+ Add new</button>
@@ -7,7 +11,6 @@
 	<div formArrayName="questions">
 		<div class="quiz-section" *ngFor="let question of QuestionsArray.controls; index as i" formGroupName="{{ i }}">
 			<input type="text" placeholder="Question?" class="option question" formControlName="question" />
-
 			<input type="text" placeholder="image url" class="option question" formControlName="image" />
 
 			<div class="option-list" formArrayName="options">
@@ -27,4 +30,6 @@
 			<input type="text" placeholder="source" class="option details" formControlName="source" />
 		</div>
 	</div>
+
+	
 </form>
