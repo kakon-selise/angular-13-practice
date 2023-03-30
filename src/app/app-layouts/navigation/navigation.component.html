@@ -2,8 +2,13 @@
 	<button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
 		<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
 	</button>
-	<span routerLink="" class="brand">test-project-kakon</span>
+	<span routerLink="" class="brand">Quiz Hero</span>
+	<span class="nav-spacer"></span>
+	<button mat-raised-button color="primary" routerLink="quiz" class="ml-5" *ngIf="isLoggedIn">+ Add quiz</button>
+	<!-- <button mat-raised-button color="primary" routerLink="/auth" class="ml-5" *ngIf="!isLoggedIn">Sign in</button> -->
+	<button mat-raised-button color="primary" class="ml-5" (click)="onSignOut()" *ngIf="isLoggedIn">Sign out</button>
 </mat-toolbar>
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading" class="progressbar"></mat-progress-bar>
 <mat-sidenav-container class="sidenav-container">
 	<mat-sidenav
 		#drawer
@@ -14,14 +19,13 @@
 	>
 		<mat-toolbar>Menu</mat-toolbar>
 		<mat-nav-list>
-			<a mat-list-item routerLink="data-table">Data table</a>
-			<a mat-list-item href="#">Link 2</a>
-			<a mat-list-item href="#">Link 3</a>
+			<a mat-list-item routerLink="quiz" *ngIf="isLoggedIn">+ Add quiz</a>
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>
 		<!-- Add Content Here -->
 		<div class="page-content">
+			
 			<router-outlet></router-outlet>
 		</div>
 	</mat-sidenav-content>

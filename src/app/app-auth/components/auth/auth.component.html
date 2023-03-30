@@ -1,0 +1,44 @@
+<p class="page-heading">{{ isLoginMode ? 'Sign In' : 'Sign Up' }}</p>
+<p class="error message container" *ngIf="errorMessage">
+	{{ errorMessage }}
+</p>
+<p class="signup-success message container" *ngIf="isRequestSuccessful">Request Successful!</p>
+
+<div class="container">
+	<div class="conatiner loading-bar">
+		<app-loading-spinner *ngIf="false"></app-loading-spinner>
+	</div>
+	<form [formGroup]="authForm" (ngSubmit)="onAuthFormSubmit()" *ngIf="!isLoading && !isRequestSuccessful">
+		<div class="auth-form">
+			<mat-form-field appearance="fill" *ngIf="!isLoginMode">
+				<mat-label>Your name</mat-label>
+				<input matInput formControlName="name" />
+			</mat-form-field>
+
+			<mat-form-field appearance="fill">
+				<mat-label>Enter your email</mat-label>
+				<input matInput email formControlName="email" />
+				<mat-error *ngIf="authForm.get('email')?.touched">Email field is requird</mat-error>
+			</mat-form-field>
+
+			<mat-form-field appearance="fill">
+				<mat-label>Enter password</mat-label>
+				<input matInput type="password" formControlName="password" minlength="6" />
+				<mat-error *ngIf="authForm.get('password')?.touched">Password is requird & minimum length 6 characters</mat-error>
+			</mat-form-field>
+		</div>
+
+		<button type="submit" mat-raised-button color="primary" [disabled]="authForm.invalid">
+			{{ isLoginMode ? 'Sign In' : 'Sign Up' }}
+		</button>
+	</form>
+	<div class="login-status-message">
+		<p>
+			{{ isLoginMode ? "Don't have any account ?" : 'Already have an account ?' }}
+			<a class="auth-status-change-link" mat-button color="primary" (click)="onModeChange()">
+				{{ isLoginMode ? 'Sign Up' : 'Sign In' }}
+			</a>
+			now.
+		</p>
+	</div>
+</div>

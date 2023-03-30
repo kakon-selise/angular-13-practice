@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { LayoutModule } from '@angular/cdk/layout';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,28 +10,18 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ArchivedComponent } from './app-cooking/components/archived/archived.component';
-import { CreateRecipeComponent } from './app-cooking/components/create-recipe/create-recipe.component';
+import { AuthComponent } from './app-auth/components/auth/auth.component';
 import { FooterComponent } from './app-layouts/footer/footer.component';
 import { NavigationComponent } from './app-layouts/navigation/navigation.component';
-import { StartGameComponent } from './app-playing/components/start-game/start-game.component';
+import { QuestionComponent } from './app-quiz/components/question/question.component';
+import { QuizComponent } from './app-quiz/components/quiz/quiz.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { MaterialModule } from './shared/material/material.module';
-import { AppDataTableComponent } from './app-data-table/app-data-table.component';
-import { AppHomePageComponent } from './app-home-page/app-home-page.component';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		CreateRecipeComponent,
-		ArchivedComponent,
-		StartGameComponent,
-		NavigationComponent,
-		FooterComponent,
-  AppDataTableComponent,
-  AppHomePageComponent,
-	],
+	declarations: [AppComponent, NavigationComponent, FooterComponent, LoadingSpinnerComponent, AuthComponent, QuestionComponent, QuizComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
@@ -44,6 +35,7 @@ import { AppHomePageComponent } from './app-home-page/app-home-page.component';
 		MatSidenavModule,
 		MatIconModule,
 		MatListModule,
+		HttpClientModule
 	],
 	providers: [],
 	bootstrap: [AppComponent],

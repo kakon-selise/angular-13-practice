@@ -1,0 +1,68 @@
+.add-new-button {
+	width: 80%;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 20px;
+}
+
+.quiz-section {
+	width: 60%;
+	margin: 30px auto;
+	background-color: #f6f6f6;
+	padding: 20px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.option-list {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.option-box {
+	display: flex;
+	align-items: center;
+	width: 50%;
+}
+
+.option {
+	border: 0;
+	background-color: rgb(219, 241, 255);
+	padding: 10px;
+	margin: 5px;
+	width: 100%;
+}
+
+.option:focus {
+	border: 0;
+	outline: none;
+	background-color: antiquewhite;
+}
+.option.question {
+	background-color: #f6f6f6;
+}
+.option.question:focus {
+	background-color: antiquewhite;
+}
+
+.option.details {
+	background-color: rgb(235, 253, 235);
+}
+
+.checkbox {
+	width: 1.3em;
+	height: 1.3em;
+	background-color: #f6f6f6;
+	border-radius: 50%;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+	appearance: none;
+	-webkit-appearance: none;
+	outline: none;
+	cursor: pointer;
+}
+
+.checkbox:checked {
+	background-color: steelblue;
+}

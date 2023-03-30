@@ -1,0 +1,25 @@
+.auth-form {
+	display: flex;
+	flex-direction: column;
+}
+
+.message {
+	padding: 10px 0;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 1rem;
+	margin: 10px auto;
+	font-weight: 300;
+}
+
+.error.message {
+	background-color: rgb(255, 218, 218);
+}
+
+.signup-success.message {
+	background-color: rgb(210, 241, 206);
+}
+
+.loading-bar {
+	text-align: center;
+}
