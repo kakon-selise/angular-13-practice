@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as ClassicEditor from '@ckeditor/ckeditor5-angular';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 
 
 
@@ -11,6 +12,30 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-angular';
 })
 export class QuestionComponent implements OnInit {
 	public Editor:any = ClassicEditor;
+
+	public editorConfig = {
+		toolbar: {
+		  items: [
+			'heading',
+			'|',
+			'bold',
+			'italic',
+			'link',
+			'bulletedList',
+			'numberedList',
+			'|',
+			'undo',
+			'redo'
+		  ]
+		}
+	  };
+	
+	  changeEditorToolbar(displayValue:any)
+	  {
+		  let elements =  Array.from(document.getElementsByClassName('ck-editor__top') as HTMLCollectionOf<HTMLElement>);
+		  elements[0].style.display = displayValue;
+	  }
+
 	constructor(private fb: FormBuilder) {}
 
 	addQuestionForm: FormGroup = this.fb.group({
