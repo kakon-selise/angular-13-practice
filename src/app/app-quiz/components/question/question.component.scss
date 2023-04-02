@@ -28,7 +28,6 @@
 
 .option {
 	border: 0;
-	background-color: rgb(219, 241, 255);
 	padding: 10px;
 	margin: 5px;
 	width: 100%;
@@ -78,10 +77,21 @@
 	;
   }
 
-  :host ::ng-deep .show-none{
+  :host ::ng-deep .kkn-show-none{
 	display: none !important;
   }
 
-  :host ::ng-deep .show-block{
+  :host ::ng-deep .kkn-show-block{
 	display: block !important;
+  }
+
+  :host ::ng-deep {
+	.ql-container.ql-snow{
+		border-radius: 10px !important;
+		
+}
+
+	.ql-container.ql-snow:hover{
+		background-color: wheat !important;
+	}
   }
