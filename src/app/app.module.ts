@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { QuillModule } from 'ngx-quill';
 import { AuthComponent } from './app-auth/components/auth/auth.component';
 import { FooterComponent } from './app-layouts/footer/footer.component';
 import { NavigationComponent } from './app-layouts/navigation/navigation.component';
@@ -22,7 +23,15 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
 import { MaterialModule } from './shared/material/material.module';
 
 @NgModule({
-	declarations: [AppComponent, NavigationComponent, FooterComponent, LoadingSpinnerComponent, AuthComponent, QuestionComponent, QuizComponent],
+	declarations: [
+		AppComponent,
+		NavigationComponent,
+		FooterComponent,
+		LoadingSpinnerComponent,
+		AuthComponent,
+		QuestionComponent,
+		QuizComponent,
+	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
@@ -37,7 +46,7 @@ import { MaterialModule } from './shared/material/material.module';
 		MatIconModule,
 		MatListModule,
 		HttpClientModule,
-		CKEditorModule
+		QuillModule
 		
 	],
 	providers: [],

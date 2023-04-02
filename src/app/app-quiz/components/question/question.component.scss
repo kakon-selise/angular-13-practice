@@ -66,3 +66,22 @@
 .checkbox:checked {
 	background-color: steelblue;
 }
+
+
+:host ::ng-deep .ql-toolbar{
+	display: none !important;
+  }
+  
+  :host ::ng-deep .ql-container {
+	border-top: 1px solid #ccc
+	 !important
+	;
+  }
+
+  :host ::ng-deep .show-none{
+	display: none !important;
+  }
+
+  :host ::ng-deep .show-block{
+	display: block !important;
+  }
