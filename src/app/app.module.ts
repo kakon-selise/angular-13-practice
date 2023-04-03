@@ -22,6 +22,9 @@ import { AppComponent } from './app.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { MaterialModule } from './shared/material/material.module';
 
+// Import wiris generic plugin
+import '@wiris/mathtype-generic/wirisplugin-generic';
+
 @NgModule({
 	declarations: [
 		AppComponent,

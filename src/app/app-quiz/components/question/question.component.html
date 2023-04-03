@@ -1,8 +1,6 @@
 <div>Value: {{ addQuestionForm.value | json }}</div>
 
-<h1>Hello world</h1>
 <button mat-fab (click)="togglePin()" [ngStyle]="{ 'background-color': pinColor }">Pin</button>
-
 
 <form [formGroup]="addQuestionForm" (submit)="onAddQuestionSubmit()">
 	<div class="add-new-button">
@@ -33,10 +31,15 @@
 
 				<div class="option-box" *ngFor="let option of optionsArray.controls; index as i" formGroupName="{{ i }}">
 					<input type="checkbox" checked class="checkbox" formControlName="isAnswer" />
-					<quill-editor formControlName="option" class="option" placeholder=" Option {{ i === 0 ? 'A' : i === 1 ? 'B' : i === 2 ? 'C' : 'D' }}"
-					formControlName="option"  (onSelectionChanged)="onSelectionChanged($event)" [modules]="editorConfig">
+					<quill-editor
+						formControlName="option"
+						class="option"
+						placeholder=" Option {{ i === 0 ? 'A' : i === 1 ? 'B' : i === 2 ? 'C' : 'D' }}"
+						formControlName="option"
+						(onSelectionChanged)="onSelectionChanged($event)"
+						[modules]="editorConfig"
+					>
 					</quill-editor>
-					
 				</div>
 			</div>
 

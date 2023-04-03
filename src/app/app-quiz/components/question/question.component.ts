@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+// Load WIRISplugins.js dynamically
+const jsDemoImagesTransform = document.createElement('script');
+jsDemoImagesTransform.type = 'text/javascript';
+jsDemoImagesTransform.src = 'https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image';
+// Load generated scripts.
+document.head.appendChild(jsDemoImagesTransform);
+
+// Import wiris plugin
+
 @Component({
 	selector: 'app-question',
 	templateUrl: './question.component.html',
 	styleUrls: ['./question.component.scss'],
 })
 export class QuestionComponent implements OnInit {
+	
 	pin: boolean = false;
 	pinColor = 'grey';
 
@@ -29,6 +39,8 @@ export class QuestionComponent implements OnInit {
 			['clean'], // remove formatting button
 
 			['link', 'image', 'video'], // link and image, video
+
+			['formula'],
 		],
 	};
 
