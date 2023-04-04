@@ -1,0 +1,50 @@
+<h2>User list</h2>
+
+<div fxLayout="column" fxLayoutGap="10px">
+	<div>
+		<p>User info 1</p>
+		<ng-container
+			*ngTemplateOutlet="
+				user;
+				context: {
+					userData: userDataFromTs
+				}
+			"
+		>
+		</ng-container>
+	</div>
+
+	<div>
+		<p>User info 2</p>
+		<ng-container
+			*ngTemplateOutlet="
+				user;
+				context: {
+					userData: userDataFromTsV2
+				}
+			"
+		>
+		</ng-container>
+	</div>
+
+	<div>
+		<p>User info 3</p>
+		<ng-container
+			*ngTemplateOutlet="
+				user;
+				context: {
+					userData: userDataFromTsV3
+				}
+			"
+		>
+		</ng-container>
+	</div>
+</div>
+
+<ng-template #user let-data="userData">
+	<div class="user-info">
+		<p>Name: {{ data?.name ? data.name : 'Kakon' }}</p>
+		<p>Age: {{ data?.theAge ? data.theAge : 50 }}</p>
+		<p>Dept: {{ data?.department ? data.department : 'CSE' }}</p>
+	</div>
+</ng-template>

@@ -4,6 +4,7 @@ import { AppDataTableComponent } from './app-data-table/app-data-table.component
 import { AppHomePageComponent } from './app-home-page/app-home-page.component';
 import { DeepStyleComponent } from './app-ng-host-ng-deep/components/deep-style/deep-style.component';
 import { RegularStyleComponent } from './app-ng-host-ng-deep/components/regular-style/regular-style.component';
+import { UserInfoComponent } from './app-ng-template/components/user-info/user-info.component';
 
 const routes: Routes = [
 	{
@@ -28,6 +29,10 @@ const routes: Routes = [
 	{
 		path: 'deep-style',
 		component: DeepStyleComponent
+	},
+	{
+		path: 'ng-template',
+		component: UserInfoComponent
 	}
 ];
 

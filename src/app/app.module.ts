@@ -18,6 +18,7 @@ import { FooterComponent } from './app-layouts/footer/footer.component';
 import { NavigationComponent } from './app-layouts/navigation/navigation.component';
 import { DeepStyleComponent } from './app-ng-host-ng-deep/components/deep-style/deep-style.component';
 import { RegularStyleComponent } from './app-ng-host-ng-deep/components/regular-style/regular-style.component';
+import { UserInfoComponent } from './app-ng-template/components/user-info/user-info.component';
 import { StartGameComponent } from './app-playing/components/start-game/start-game.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,6 +38,7 @@ import { MaterialModule } from './shared/material/material.module';
   RegularStyleComponent,
   DeepStyleComponent,
   KknCardComponent,
+  UserInfoComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -51,7 +53,8 @@ import { MaterialModule } from './shared/material/material.module';
 		MatSidenavModule,
 		MatIconModule,
 		MatListModule,
-		FlexLayoutModule
+		FlexLayoutModule,
+		
 	],
 	providers: [],
 	bootstrap: [AppComponent],

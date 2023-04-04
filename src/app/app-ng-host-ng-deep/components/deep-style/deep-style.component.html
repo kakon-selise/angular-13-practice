@@ -1,1 +1,19 @@
-<p>deep-style works!</p>
+<h2>Card Using host and ng-deep</h2>
+
+<div fxLayout="row wrap" fxLayoutGap="20px">
+	<app-kkn-card></app-kkn-card>
+	<app-kkn-card></app-kkn-card>
+	<app-kkn-card></app-kkn-card>
+</div>
+
+<br />
+<br />
+<hr />
+
+<h2>Card using host context of app-kkn-card</h2>
+
+<div fxLayout="row wrap" fxLayoutGap="20px" class="green-card">
+	<app-kkn-card></app-kkn-card>
+	<app-kkn-card></app-kkn-card>
+	<app-kkn-card></app-kkn-card>
+</div>
