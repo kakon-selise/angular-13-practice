@@ -24,6 +24,7 @@ import { MaterialModule } from './shared/material/material.module';
 
 
 
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -48,7 +49,8 @@ import { MaterialModule } from './shared/material/material.module';
 		MatIconModule,
 		MatListModule,
 		HttpClientModule,
-		QuillModule
+		QuillModule,
+		
 		
 		
 	],
