@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { QuillModule } from 'ngx-quill';
 import { AuthComponent } from './app-auth/components/auth/auth.component';
 import { FooterComponent } from './app-layouts/footer/footer.component';
@@ -21,6 +22,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { MaterialModule } from './shared/material/material.module';
+
+// Import all Froala Editor plugins.
+import "froala-editor/js/plugins.pkgd.min.js";
+import { AppFroalaComponent } from './app-froala/app-froala.component';
+
+// Expose FroalaEditor instance to window.
+declare const require: any;
+(window as any).FroalaEditor = require("froala-editor");
+require("@wiris/mathtype-froala3"); // Import WIRIS Mathtype formula editor.
+
 
 
 
@@ -34,6 +45,7 @@ import { MaterialModule } from './shared/material/material.module';
 		AuthComponent,
 		QuestionComponent,
 		QuizComponent,
+  AppFroalaComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -50,9 +62,8 @@ import { MaterialModule } from './shared/material/material.module';
 		MatListModule,
 		HttpClientModule,
 		QuillModule,
-		
-		
-		
+		FroalaEditorModule,
+		FroalaViewModule
 	],
 	providers: [],
 	bootstrap: [AppComponent],

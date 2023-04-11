@@ -1,5 +1,7 @@
 <div>Value: {{ addQuestionForm.value | json }}</div>
 
+<app-app-froala></app-app-froala>
+
 <button mat-fab (click)="togglePin()" [ngStyle]="{ 'background-color': pinColor }">Pin</button>
 
 <form [formGroup]="addQuestionForm" (submit)="onAddQuestionSubmit()">
