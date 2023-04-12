@@ -1,6 +1,5 @@
 <div>Value: {{ addQuestionForm.value | json }}</div>
 
-<app-app-froala></app-app-froala>
 
 <button mat-fab (click)="togglePin()" [ngStyle]="{ 'background-color': pinColor }">Pin</button>
 
@@ -14,34 +13,29 @@
 			*ngFor="let question of QuestionsArray.controls; index as questionId"
 			formGroupName="{{ questionId }}"
 		>
-			<!-- <input type="text" placeholder="Question?" class="option question" formControlName="question" /> -->
-			<quill-editor formControlName="question" (onSelectionChanged)="onSelectionChanged($event)" [modules]="editorConfig">
-			</quill-editor>
+			<div id='editor' [froalaEditor]="options" [(froalaModel)]="content" formControlName="question">
+				<input
+				id="editor"
+				type="text"
+				placeholder="Question?"
+				class="option question"
+				
+			/>
+			</div>
 
 			<input type="text" placeholder="image url" class="option question" formControlName="image" />
 
 			<div class="option-list" formArrayName="options">
-				<!-- <div class="option-box" *ngFor="let option of optionsArray.controls; index as i" formGroupName="{{ i }}">
+				<div class="option-box" *ngFor="let option of optionsArray.controls; index as i" formGroupName="{{ i }}">
 					<input type="checkbox" checked class="checkbox" formControlName="isAnswer" />
-					<input
+					<div [froalaEditor]="options" formControlName="option">
+						<input
 						type="text"
 						class="option"
 						placeholder=" Option {{ i === 0 ? 'A' : i === 1 ? 'B' : i === 2 ? 'C' : 'D' }}"
-						formControlName="option"
+						
 					/>
-				</div> -->
-
-				<div class="option-box" *ngFor="let option of optionsArray.controls; index as i" formGroupName="{{ i }}">
-					<input type="checkbox" checked class="checkbox" formControlName="isAnswer" />
-					<quill-editor
-						formControlName="option"
-						class="option"
-						placeholder=" Option {{ i === 0 ? 'A' : i === 1 ? 'B' : i === 2 ? 'C' : 'D' }}"
-						formControlName="option"
-						(onSelectionChanged)="onSelectionChanged($event)"
-						[modules]="editorConfig"
-					>
-					</quill-editor>
+					</div>
 				</div>
 			</div>
 

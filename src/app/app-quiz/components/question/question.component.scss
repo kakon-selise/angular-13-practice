@@ -9,7 +9,7 @@
 	width: 60%;
 	margin: 30px auto;
 	background-color: #f6f6f6;
-	padding: 20px;
+	padding: 20px 50px;
 	border-radius: 10px;
 	overflow: hidden;
 }
@@ -18,12 +18,14 @@
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
+	
 }
 
 .option-box {
 	display: flex;
 	align-items: center;
 	width: 50%;
+	margin: 10px 0;
 }
 
 .option {
