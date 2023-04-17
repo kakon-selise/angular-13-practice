@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { QuizService } from '../../services/quiz.service';
 
 // Load WIRISplugins.js dynamically
 const jsDemoImagesTransform = document.createElement('script');
@@ -15,8 +16,9 @@ document.head.appendChild(jsDemoImagesTransform);
 export class QuestionComponent implements OnInit {
 	pin: boolean = false;
 	pinColor = 'grey';
+	myQuestions: any[];
 
-	constructor(private fb: FormBuilder) {}
+	constructor(private fb: FormBuilder, private quizService: QuizService) {}
 
 	togglePin() {
 		this.pin = !this.pin;
@@ -34,25 +36,6 @@ export class QuestionComponent implements OnInit {
 				elements[i].classList.remove('kkn-show-block');
 			}
 		}
-	}
-
-	onSelectionChanged = (event: any) => {
-		if (event.oldRange == null) {
-			this.onFocus(event);
-		}
-		if (event.range == null && !this.pin) {
-			this.onBlur(event);
-		}
-	};
-
-	onFocus(event: any) {
-		event.editor.theme.modules.toolbar.container.classList.remove('kkn-show-none');
-		event.editor.theme.modules.toolbar.container.classList.add('kkn-show-block');
-	}
-
-	onBlur(event: any) {
-		event.editor.theme.modules.toolbar.container.classList.add('kkn-show-none');
-		event.editor.theme.modules.toolbar.container.classList.remove('kkn-show-block');
 	}
 
 	addQuestionForm: FormGroup = this.fb.group({
@@ -97,6 +80,7 @@ export class QuestionComponent implements OnInit {
 	}
 
 	onAddNewQuestion() {
+
 		const newQuestion = this.fb.group({
 			question: ['', Validators.required],
 			image: ['', Validators.required],
@@ -129,8 +113,24 @@ export class QuestionComponent implements OnInit {
 		this.QuestionsArray.push(newQuestion);
 	}
 
+	onSaveQuestions(){
+		let formData = this.addQuestionForm.getRawValue(); 
+		formData.questions.forEach((questionData: any)=>{
+			this.quizService.postQuestion(questionData).subscribe((data)=>{
+				this.getMyQuestions();
+			})
+		});
+
+	}
+
+	getMyQuestions(){
+		this.quizService.getMyQuestions().subscribe((data:any)=>{
+			this.myQuestions = data;
+		})
+	}
+
 	onAddQuestionSubmit() {
-		console.log(this.addQuestionForm.value);
+		
 	}
 
 	ngOnInit(): void {}

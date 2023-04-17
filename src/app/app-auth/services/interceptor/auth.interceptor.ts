@@ -19,7 +19,6 @@ export class AuthInterceptor implements HttpInterceptor {
 					//params: new HttpParams().set('auth', user.token),
 					headers: new HttpHeaders().set('Authorization', `Bearer ${user.token}`),
 				});
-				debugger
 
 				// console.log('Modified req is = ', modifiedReq);
 				return next.handle(modifiedReq);
