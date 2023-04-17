@@ -9,6 +9,7 @@ import { User } from '../models/User.model';
 	providedIn: 'root',
 })
 export class AuthService {
+	BASE_URL = 'http://input.quizhero.easymemo.net/api/v1/';
 	signUpUrl = 'http://input.quizhero.easymemo.net/api/v1/auth/register';
 	signInUrl = 'http://input.quizhero.easymemo.net/api/v1/auth/login';
 	user = new BehaviorSubject<User>(null!);
@@ -69,5 +70,10 @@ export class AuthService {
 		this.router.navigate(['auth']);
 		localStorage.removeItem('user');
 		this.isLoggedIn.next(false);
+	}
+
+	getMyProfile() {
+		const url = `${this.BASE_URL}users/my-profile`;
+		return this.http.get(url);
 	}
 }

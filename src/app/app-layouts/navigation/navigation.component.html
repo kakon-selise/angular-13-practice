@@ -7,6 +7,7 @@
 	<button mat-raised-button color="primary" routerLink="quiz" class="ml-5" *ngIf="isLoggedIn">+ Add quiz</button>
 	<!-- <button mat-raised-button color="primary" routerLink="/auth" class="ml-5" *ngIf="!isLoggedIn">Sign in</button> -->
 	<button mat-raised-button color="primary" class="ml-5" (click)="onSignOut()" *ngIf="isLoggedIn">Sign out</button>
+	<button mat-raised-button color="primary" class="ml-5" routerLink="get-questions" *ngIf="isLoggedIn">All questions</button>
 </mat-toolbar>
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading" class="progressbar"></mat-progress-bar>
 <mat-sidenav-container class="sidenav-container">
@@ -20,6 +21,7 @@
 		<mat-toolbar>Menu</mat-toolbar>
 		<mat-nav-list>
 			<a mat-list-item routerLink="quiz" *ngIf="isLoggedIn">+ Add quiz</a>
+			<a mat-list-item routerLink="get-questions" *ngIf="isLoggedIn">All questions</a>
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>

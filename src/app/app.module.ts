@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 
 import { LayoutModule } from '@angular/cdk/layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,7 +25,9 @@ import { MaterialModule } from './shared/material/material.module';
 
 // Import all Froala Editor plugins.
 import "froala-editor/js/plugins.pkgd.min.js";
+import { AuthInterceptor } from './app-auth/services/interceptor/auth.interceptor';
 import { AppFroalaComponent } from './app-froala/app-froala.component';
+import { AllQuestionsComponent } from './app-question-list/components/all-questions/all-questions.component';
 
 // Expose FroalaEditor instance to window.
 declare const require: any;
@@ -46,6 +48,7 @@ require("@wiris/mathtype-froala3"); // Import WIRIS Mathtype formula editor.
 		QuestionComponent,
 		QuizComponent,
   AppFroalaComponent,
+  AllQuestionsComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -65,7 +68,13 @@ require("@wiris/mathtype-froala3"); // Import WIRIS Mathtype formula editor.
 		FroalaEditorModule,
 		FroalaViewModule
 	],
-	providers: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
+			multi: true,
+		  },
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {
