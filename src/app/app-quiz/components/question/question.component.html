@@ -1,54 +1,60 @@
-<div>Value: {{ addQuestionForm.value | json }}</div>
+<div class="fixed-ui-buttons">
+	<div class="button-list">
+		<button class="button-item" mat-raised-button color="primary" (click)="onAddNewQuestion()">+ Add new</button>
+		<button
+			class="button-item"
+			mat-raised-button
+			color="accent"
+			(click)="onSaveQuestions()"
+			[disabled]="addQuestionForm.invalid"
+		>
+			Save all question
+		</button>
+		<!-- <button class="button-item" mat-raised-button color="accent" (click)="getMyQuestions()">Get my questions</button> -->
+	</div>
+</div>
 
+<div class="loading-spinner">
+	<mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>
 
-<button mat-fab (click)="togglePin()" [ngStyle]="{ 'background-color': pinColor }">Pin</button>
+<div class="error-message" *ngIf="error">
+	<p>{{ errorMsg }}</p>
+	<div class="error-cancel-icon">
+		<mat-icon (click)="onCancelIcon()">cancel</mat-icon>
+	</div>
+</div>
+
+<div class="success-message" *ngIf="success">
+	<p>{{ successMsg }}</p>
+</div>
 
 <form [formGroup]="addQuestionForm" (submit)="onAddQuestionSubmit()">
-	<div class="add-new-button">
-		<button mat-raised-button color="primary" (click)="onAddNewQuestion()">+ Add new</button>
-	</div>
-
 	<div>
-		<button mat-raised-button color="accent" (click)="onSaveQuestions()">Save all question</button>
+		{{ myQuestions | json }}
 	</div>
 
-	<div style="margin-top: 20px;">
-		<button mat-raised-button color="accent" (click)="getMyQuestions()">Get my questions</button>
-	</div>
-
-	<div>
-		{{myQuestions | json}}
-	</div>
-
-
-	<div formArrayName="questions">
+	<div formArrayName="questions" *ngIf="!isLoading">
 		<div
 			class="quiz-section"
 			*ngFor="let question of QuestionsArray.controls; index as questionId"
 			formGroupName="{{ questionId }}"
 		>
-			<div id='editor' [froalaEditor]="options" [(froalaModel)]="content" formControlName="question">
-				<input
-				id="editor"
-				type="text"
-				placeholder="Question?"
-				class="option question"
-				
-			/>
+			<div id="editor" [froalaEditor]="options" [(froalaModel)]="content" formControlName="question">
+				<input id="editor" type="text" placeholder="Question?" class="option question" />
 			</div>
 
-			<input type="text" placeholder="image url" class="option question" formControlName="image" />
+			<input type="text" placeholder="image url" class="option details" formControlName="image" />
 
 			<div class="option-list" formArrayName="options">
 				<div class="option-box" *ngFor="let option of optionsArray.controls; index as i" formGroupName="{{ i }}">
 					<input type="checkbox" checked class="checkbox" formControlName="isAnswer" />
 					<div [froalaEditor]="options" formControlName="option">
 						<input
-						type="text"
-						class="option"
-						placeholder=" Option {{ i === 0 ? 'A' : i === 1 ? 'B' : i === 2 ? 'C' : 'D' }}"
-						
-					/>
+							type="text"
+							class="option"
+							placeholder=" Option {{ i === 0 ? 'A' : i === 1 ? 'B' : i === 2 ? 'C' : 'D' }}"
+						/>
 					</div>
 				</div>
 			</div>
