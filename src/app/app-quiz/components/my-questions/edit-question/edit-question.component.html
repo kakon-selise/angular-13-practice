@@ -1,4 +1,6 @@
 <form [formGroup]="editQuestionForm" (submit)="onEditQuestionSubmit()">
+	<div
+	class="quiz-section">
 
 			<div id="editor" [froalaEditor]="options" [(froalaModel)]="content" formControlName="question">
 				<input id="editor" type="text" placeholder="Question?" class="option question" />
@@ -18,5 +20,5 @@
 			<input type="text" placeholder="subject" class="option details" formControlName="subject" />
 			<input type="text" placeholder="chapter" class="option details" formControlName="chapter" />
 			<input type="text" placeholder="source" class="option details" formControlName="source" />
-
+		</div>
 </form>
