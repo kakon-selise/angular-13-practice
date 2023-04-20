@@ -4,10 +4,10 @@
 	</button>
 	<span routerLink="/quiz" class="brand">Quiz Hero</span>
 	<span class="nav-spacer"></span>
-	<button mat-raised-button color="primary" routerLink="quiz" class="ml-5" *ngIf="isLoggedIn">+ Add quiz</button>
+	<!-- <button mat-raised-button color="primary" routerLink="quiz" class="ml-5" *ngIf="isLoggedIn">+ Add quiz</button> -->
 	<!-- <button mat-raised-button color="primary" routerLink="/auth" class="ml-5" *ngIf="!isLoggedIn">Sign in</button> -->
 	<button mat-raised-button color="primary" class="ml-5" (click)="onSignOut()" *ngIf="isLoggedIn">Sign out</button>
-	<button mat-raised-button color="primary" class="ml-5" routerLink="get-questions" *ngIf="isLoggedIn">All questions</button>
+	<!-- <button mat-raised-button color="primary" class="ml-5" routerLink="get-questions" *ngIf="isLoggedIn">All questions</button> -->
 </mat-toolbar>
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading" class="progressbar"></mat-progress-bar>
 <mat-sidenav-container class="sidenav-container">
