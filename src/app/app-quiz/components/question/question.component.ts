@@ -128,7 +128,7 @@ export class QuestionComponent implements OnInit {
 						this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
 							window.location.reload();
 						});
-					}, 3000);
+					}, 1500);
 				},
 			});
 		});

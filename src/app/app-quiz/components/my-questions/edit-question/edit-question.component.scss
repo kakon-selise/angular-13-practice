@@ -84,18 +84,10 @@
 	margin: 5px 5px;
 }
 
-.fixed-ui-buttons {
-	width: 100%;
+.update-button{
 	position: fixed;
-	bottom: 0;
-	z-index: 5;
-}
-
-.button-list {
-	padding: 10px;
-	width: 100%;
-	display: inline-flex;
-	justify-content: center;
+	top: 70px;
+	right: 70px;
 }
 
 .error-message{

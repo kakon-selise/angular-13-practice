@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { QuizService } from 'src/app/app-quiz/services/quiz.service';
 
 // Load WIRISplugins.js dynamically
@@ -11,35 +11,87 @@ jsDemoImagesTransform.src = 'https://www.wiris.net/demo/plugins/app/WIRISplugins
 document.head.appendChild(jsDemoImagesTransform);
 
 @Component({
-  selector: 'app-edit-question',
-  templateUrl: './edit-question.component.html',
-  styleUrls: ['./edit-question.component.scss']
+	selector: 'app-edit-question',
+	templateUrl: './edit-question.component.html',
+	styleUrls: ['./edit-question.component.scss'],
 })
 export class EditQuestionComponent implements OnInit {
-
-  saveQuestionDisable: boolean = false;
+	saveQuestionDisable: boolean = false;
 	pinColor = 'grey';
 	myQuestions: any[];
-	isLoading: boolean = false;
+	isLoading: boolean = true;
 	error: boolean = false;
 	errorMsg: string = '';
 	success: boolean = false;
 	successMsg: string = 'Data uploaded successfully';
+	currentId: string = '';
+	questionInfo: any = [];
 
-  constructor(private fb: FormBuilder, private quizService: QuizService, private router: Router) { 
+	constructor(
+		private fb: FormBuilder,
+		private quizService: QuizService,
+		private router: Router,
+		private route: ActivatedRoute
+	) {}
 
-  }
+	ngOnInit(): void {
+		this.route.params.subscribe((data: Params) => {
+			this.currentId = data['id'];
+			this.getCurrentQuestionInfo(this.currentId);
+		});
+	}
 
-  ngOnInit(): void {
-    
-  }
+	getCurrentQuestionInfo(id: string) {
+		this.quizService.getCurrentQuestionInfo(id).subscribe((question) => {
+			this.questionInfo = question;
+			this.editQuestionForm.patchValue({
+				question: this.questionInfo.data.question,
+				image: 'imgUrl', // replace with the actual image url if needed
+				subject: this.questionInfo.data.subject,
+				chapter: this.questionInfo.data.chapter,
+				source: this.questionInfo.data.source,
+			});
+			// set options array values
+			const optionsArray = this.editQuestionForm.get('options') as FormArray;
+			this.questionInfo.data.options.forEach((option: any, index: number) => {
+				optionsArray.at(index).patchValue({
+					option: option.option,
+					isAnswer: option.isAnswer,
+				});
+			});
 
-  editQuestionForm: FormGroup = this.fb.group({
-				question: ['', Validators.required],
-				image: ['imgUrl'],
-				subject: ['', Validators.required],
-				chapter: ['', Validators.required],
-				source: ['', Validators.required],
+			this.isLoading = false;
+		});
+
+	}
+
+	editQuestionForm: FormGroup = this.fb.group({
+		question: [this.questionInfo?.question, Validators.required],
+		image: ['imgUrl'],
+		options: this.fb.array([
+			this.fb.group({
+				option: ['', [Validators.required]],
+				isAnswer: ['', []],
+			}),
+
+			this.fb.group({
+				option: ['', [Validators.required]],
+				isAnswer: ['', []],
+			}),
+
+			this.fb.group({
+				option: ['', [Validators.required]],
+				isAnswer: ['', []],
+			}),
+
+			this.fb.group({
+				option: ['', [Validators.required]],
+				isAnswer: ['', []],
+			}),
+		]),
+		subject: ['', Validators.required],
+		chapter: ['', Validators.required],
+		source: ['', Validators.required],
 	});
 
 	get QuestionsArray() {
@@ -47,10 +99,10 @@ export class EditQuestionComponent implements OnInit {
 	}
 
 	get optionsArray() {
-		return (this.editQuestionForm.get('questions') as FormArray).at(0).get('options') as FormArray;
+		return this.editQuestionForm.get('options') as FormArray;
 	}
 
-  onSaveQuestions() {
+	onSaveQuestions() {
 		this.isLoading = true;
 		let formData = this.editQuestionForm.getRawValue();
 		formData.questions.forEach((questionData: any) => {
@@ -85,10 +137,33 @@ export class EditQuestionComponent implements OnInit {
 		});
 	}
 
-  onEditQuestionSubmit(){
-    
-  }
+	onEditQuestionSubmit() {}
 
+	onUpdateQuestions(){
+		this.isLoading = true;
+		const updatedQuestion = this.editQuestionForm.getRawValue();
+			this.quizService.updateQuestion(updatedQuestion, this.currentId).subscribe({
+				next: (data) => {},
+
+				error: (err) => {
+					this.error = true;
+					this.isLoading = false;
+					this.errorMsg = err.statusText;
+				},
+
+				complete: () => {
+					this.isLoading = false;
+					this.error = false;
+					this.success = true;
+					setTimeout(() => {
+						this.getMyQuestions();
+						this.editQuestionForm.reset();
+						this.router.navigate(['/myQuestions']);
+					}, 2000);
+				},
+			});
+		
+	}
 
 	// Set App Title.
 	title = 'Angular froala demo';
@@ -118,8 +193,7 @@ export class EditQuestionComponent implements OnInit {
 		toolbarSticky: false,
 	};
 
-	onCancelIcon(){
+	onCancelIcon() {
 		this.error = false;
 	}
-
 }
