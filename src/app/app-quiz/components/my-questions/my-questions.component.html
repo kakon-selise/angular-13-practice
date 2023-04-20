@@ -1,0 +1,55 @@
+
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading" class="progressbar"></mat-progress-bar>
+
+<mat-form-field>
+	<input #filterInput type="text" matInput placeholder="Filter" (keyup)="applyFilter(filterInput.value)" />
+</mat-form-field>
+
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+	<!-- Question Column -->
+	<ng-container matColumnDef="question">
+		<mat-header-cell *matHeaderCellDef mat-sort-header=""> Question </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{ element.question }} </mat-cell>
+	</ng-container>
+
+	<!-- Image Column -->
+	<ng-container matColumnDef="image">
+		<mat-header-cell *matHeaderCellDef mat-sort-header=""> Image Url </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{ element.image }} </mat-cell>
+	</ng-container>
+
+	<!-- Options Column
+	<ng-container matColumnDef="options">
+		<mat-header-cell *matHeaderCellDef mat-sort-header=""> Options </mat-header-cell>
+		<mat-cell *matCellDef="let element">
+            <div *ngFor="let option of element.options ">
+              <p>Option: {{option.option}}</p>
+              <p>Is Answer: {{option.isAnswer}} </p>
+            </div>
+        </mat-cell>
+	</ng-container> -->
+
+	<!-- Subject Column -->
+	<ng-container matColumnDef="subject">
+		<mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{ element.subject }} </mat-cell>
+	</ng-container>
+
+    <!-- Chapter Column -->
+	<ng-container matColumnDef="chapter">
+		<mat-header-cell *matHeaderCellDef> Chapter </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{ element.chapter }} </mat-cell>
+	</ng-container>
+
+    <!-- Source Column -->
+	<ng-container matColumnDef="source">
+		<mat-header-cell *matHeaderCellDef> Source </mat-header-cell>
+		<mat-cell *matCellDef="let element"> {{ element.source }} </mat-cell>
+	</ng-container>
+
+	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+	<mat-row *matRowDef="let row; columns: displayedColumns" (click)="getRowData(row)"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+</mat-paginator>

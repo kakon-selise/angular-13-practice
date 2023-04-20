@@ -1,6 +1,6 @@
 <div class="fixed-ui-buttons">
 	<div class="button-list">
-		<button class="button-item" mat-raised-button color="primary" (click)="onAddNewQuestion()">+ Add new</button>
+		<button class="button-item" mat-raised-button color="primary" (click)="onAddNewQuestion()" [disabled]="QuestionsArray.controls.length === 5">+ Add new</button>
 		<button
 			class="button-item"
 			mat-raised-button

@@ -28,6 +28,7 @@ import "froala-editor/js/plugins.pkgd.min.js";
 import { AuthInterceptor } from './app-auth/services/interceptor/auth.interceptor';
 import { AppFroalaComponent } from './app-froala/app-froala.component';
 import { AllQuestionsComponent } from './app-question-list/components/all-questions/all-questions.component';
+import { MyQuestionsComponent } from './app-quiz/components/my-questions/my-questions.component';
 
 // Expose FroalaEditor instance to window.
 declare const require: any;
@@ -49,6 +50,7 @@ require("@wiris/mathtype-froala3"); // Import WIRIS Mathtype formula editor.
 		QuizComponent,
   AppFroalaComponent,
   AllQuestionsComponent,
+  MyQuestionsComponent,
 	],
 	imports: [
 		BrowserModule,
