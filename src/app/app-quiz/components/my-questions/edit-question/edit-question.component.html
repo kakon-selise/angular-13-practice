@@ -1,0 +1,22 @@
+<form [formGroup]="editQuestionForm" (submit)="onEditQuestionSubmit()">
+
+			<div id="editor" [froalaEditor]="options" [(froalaModel)]="content" formControlName="question">
+				<input id="editor" type="text" placeholder="Question?" class="option question" />
+			</div>
+
+			<input type="text" placeholder="image url" class="option details" formControlName="image" />
+
+			<div class="option-list" formArrayName="options">
+				<div class="option-box">
+					<input type="checkbox" checked class="checkbox" formControlName="isAnswer" />
+					<div [froalaEditor]="options" formControlName="option">
+						<input type="text" class="option" />
+					</div>
+				</div>
+			</div>
+
+			<input type="text" placeholder="subject" class="option details" formControlName="subject" />
+			<input type="text" placeholder="chapter" class="option details" formControlName="chapter" />
+			<input type="text" placeholder="source" class="option details" formControlName="source" />
+
+</form>

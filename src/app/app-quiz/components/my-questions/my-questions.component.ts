@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Question } from '../../models/question.model';
 import { QuizService } from '../../services/quiz.service';
 
@@ -17,7 +18,7 @@ export class MyQuestionsComponent implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	constructor(private quizService: QuizService) {}
+	constructor(private quizService: QuizService, private router:Router) {}
 
 	ngOnInit(): void {
 		this.getMyQuestions();
@@ -39,7 +40,9 @@ export class MyQuestionsComponent implements OnInit {
 
 
 	getRowData(row: Question) {
+    this.router.navigate([`/myQuestions/${row.id}`])
 		console.log(row);
+
 	}
 
 	applyFilter(filterValue: string) {
@@ -50,4 +53,6 @@ export class MyQuestionsComponent implements OnInit {
 		this.dataSource.sort = this.sort;
 		this.dataSource.paginator = this.paginator;
 	}
+
+  
 }

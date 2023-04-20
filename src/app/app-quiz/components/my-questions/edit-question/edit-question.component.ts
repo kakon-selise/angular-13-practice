@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { QuizService } from '../../services/quiz.service';
+import { QuizService } from 'src/app/app-quiz/services/quiz.service';
 
 // Load WIRISplugins.js dynamically
 const jsDemoImagesTransform = document.createElement('script');
@@ -9,13 +9,15 @@ jsDemoImagesTransform.type = 'text/javascript';
 jsDemoImagesTransform.src = 'https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image';
 // Load generated scripts.
 document.head.appendChild(jsDemoImagesTransform);
+
 @Component({
-	selector: 'app-question',
-	templateUrl: './question.component.html',
-	styleUrls: ['./question.component.scss'],
+  selector: 'app-edit-question',
+  templateUrl: './edit-question.component.html',
+  styleUrls: ['./edit-question.component.scss']
 })
-export class QuestionComponent implements OnInit {
-	saveQuestionDisable: boolean = false;
+export class EditQuestionComponent implements OnInit {
+
+  saveQuestionDisable: boolean = false;
 	pinColor = 'grey';
 	myQuestions: any[];
 	isLoading: boolean = false;
@@ -24,90 +26,33 @@ export class QuestionComponent implements OnInit {
 	success: boolean = false;
 	successMsg: string = 'Data uploaded successfully';
 
-	constructor(private fb: FormBuilder, private quizService: QuizService, private router: Router) {}
+  constructor(private fb: FormBuilder, private quizService: QuizService, private router: Router) { 
 
-	onFormValueChange() {
-		alert('Done');
-	}
+  }
 
-	addQuestionForm: FormGroup = this.fb.group({
-		questions: this.fb.array([
-			this.fb.group({
+  ngOnInit(): void {
+    
+  }
+
+  editQuestionForm: FormGroup = this.fb.group({
 				question: ['', Validators.required],
 				image: ['imgUrl'],
-				options: this.fb.array([
-					this.fb.group({
-						option: ['', [Validators.required]],
-						isAnswer: ['', []],
-					}),
-
-					this.fb.group({
-						option: ['', [Validators.required]],
-						isAnswer: ['', []],
-					}),
-
-					this.fb.group({
-						option: ['', [Validators.required]],
-						isAnswer: ['', []],
-					}),
-
-					this.fb.group({
-						option: ['', [Validators.required]],
-						isAnswer: ['', []],
-					}),
-				]),
 				subject: ['', Validators.required],
 				chapter: ['', Validators.required],
 				source: ['', Validators.required],
-			}),
-		]),
 	});
 
 	get QuestionsArray() {
-		return this.addQuestionForm.get('questions') as FormArray;
+		return this.editQuestionForm.get('questions') as FormArray;
 	}
 
 	get optionsArray() {
-		return (this.addQuestionForm.get('questions') as FormArray).at(0).get('options') as FormArray;
+		return (this.editQuestionForm.get('questions') as FormArray).at(0).get('options') as FormArray;
 	}
 
-	onAddNewQuestion() {
-		this.saveQuestionDisable = false;
-		const newQuestion = this.fb.group({
-			question: ['', Validators.required],
-			image: ['imageUrl'],
-			options: this.fb.array([
-				this.fb.group({
-					option: ['', [Validators.required]],
-					isAnswer: ['', []],
-				}),
-
-				this.fb.group({
-					option: ['', [Validators.required]],
-					isAnswer: ['', []],
-				}),
-
-				this.fb.group({
-					option: ['', [Validators.required]],
-					isAnswer: ['', []],
-				}),
-
-				this.fb.group({
-					option: ['', [Validators.required]],
-					isAnswer: ['', []],
-				}),
-			]),
-			subject: ['', Validators.required],
-			chapter: ['', Validators.required],
-			source: ['', Validators.required],
-		});
-
-		this.QuestionsArray.push(newQuestion);
-	}
-
-	onSaveQuestions() {
+  onSaveQuestions() {
 		this.isLoading = true;
-		let formData = this.addQuestionForm.getRawValue();
+		let formData = this.editQuestionForm.getRawValue();
 		formData.questions.forEach((questionData: any) => {
 			this.quizService.postQuestion(questionData).subscribe({
 				next: (data) => {},
@@ -124,11 +69,11 @@ export class QuestionComponent implements OnInit {
 					this.success = true;
 					setTimeout(() => {
 						this.getMyQuestions();
-						this.addQuestionForm.reset();
+						this.editQuestionForm.reset();
 						this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
 							window.location.reload();
 						});
-					}, 3000);
+					}, 2000);
 				},
 			});
 		});
@@ -140,9 +85,10 @@ export class QuestionComponent implements OnInit {
 		});
 	}
 
-	onAddQuestionSubmit() {}
+  onEditQuestionSubmit(){
+    
+  }
 
-	ngOnInit(): void {}
 
 	// Set App Title.
 	title = 'Angular froala demo';
@@ -175,4 +121,5 @@ export class QuestionComponent implements OnInit {
 	onCancelIcon(){
 		this.error = false;
 	}
+
 }
