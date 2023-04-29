@@ -9,9 +9,9 @@ import { User } from '../models/User.model';
 	providedIn: 'root',
 })
 export class AuthService {
-	BASE_URL = 'http://input.quizhero.easymemo.net/api/v1/';
-	signUpUrl = 'http://input.quizhero.easymemo.net/api/v1/auth/register';
-	signInUrl = 'http://input.quizhero.easymemo.net/api/v1/auth/login';
+	BASE_URL = 'https://input.quizhero.easymemo.net/api/v1/';
+	signUpUrl = 'https://input.quizhero.easymemo.net/api/v1/auth/register';
+	signInUrl = 'https://input.quizhero.easymemo.net/api/v1/auth/login';
 	user = new BehaviorSubject<User>(null!);
 	isLoggedIn = new Subject();
 	checktest: boolean;

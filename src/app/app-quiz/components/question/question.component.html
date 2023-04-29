@@ -36,8 +36,8 @@
 			*ngFor="let question of QuestionsArray.controls; index as questionId"
 			formGroupName="{{ questionId }}"
 		>
-			<div id="editor" [froalaEditor]="options" [(froalaModel)]="content" formControlName="question">
-				<input id="editor" type="text" placeholder="Question?" class="option question" />
+			<div  [froalaEditor]="options"  formControlName="question">
+				<input  type="text" placeholder="Question?" class="option question" />
 			</div>
 
 			<input type="text" placeholder="image url" class="option details" formControlName="image" />

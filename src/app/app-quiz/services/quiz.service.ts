@@ -6,7 +6,7 @@ import { Question } from '../models/question.model';
 	providedIn: 'root',
 })
 export class QuizService {
-	BASE_URL = `http://input.quizhero.easymemo.net/api/v1/`;
+	BASE_URL = `https://input.quizhero.easymemo.net/api/v1/`;
 
 	constructor(private http: HttpClient) {}
 
