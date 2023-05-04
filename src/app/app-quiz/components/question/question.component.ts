@@ -109,28 +109,30 @@ export class QuestionComponent implements OnInit {
 		this.isLoading = true;
 		let formData = this.addQuestionForm.getRawValue();
 		formData.questions.forEach((questionData: any) => {
-			this.quizService.postQuestion(questionData).subscribe({
-				next: (data) => {},
-
-				error: (err) => {
-					this.error = true;
-					this.isLoading = false;
-					this.errorMsg = err.statusText;
-				},
-
-				complete: () => {
-					this.isLoading = false;
-					this.error = false;
-					this.success = true;
-					setTimeout(() => {
-						this.getMyQuestions();
-						this.addQuestionForm.reset();
-						this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
-							window.location.reload();
-						});
-					}, 1500);
-				},
-			});
+			setTimeout(()=>{
+				this.quizService.postQuestion(questionData).subscribe({
+					next: (data) => {},
+	
+					error: (err) => {
+						this.error = true;
+						this.isLoading = false;
+						this.errorMsg = err.statusText;
+					},
+	
+					complete: () => {
+						this.isLoading = false;
+						this.error = false;
+						this.success = true;
+						setTimeout(() => {
+							this.getMyQuestions();
+							this.addQuestionForm.reset();
+							this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
+								window.location.reload();
+							});
+						}, 1500);
+					},
+				});
+			},500)
 		});
 	}
 
