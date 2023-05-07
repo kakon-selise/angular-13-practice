@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { concatMap, from } from 'rxjs';
 import { QuizService } from '../../services/quiz.service';
 
 // Load WIRISplugins.js dynamically
@@ -108,33 +109,45 @@ export class QuestionComponent implements OnInit {
 	onSaveQuestions() {
 		this.isLoading = true;
 		let formData = this.addQuestionForm.getRawValue();
-		formData.questions.forEach((questionData: any) => {
-			setTimeout(()=>{
-				this.quizService.postQuestion(questionData).subscribe({
-					next: (data) => {},
-	
-					error: (err) => {
-						this.error = true;
-						this.isLoading = false;
-						this.errorMsg = err.statusText;
-					},
-	
-					complete: () => {
-						this.isLoading = false;
-						this.error = false;
-						this.success = true;
-						setTimeout(() => {
-							this.getMyQuestions();
-							this.addQuestionForm.reset();
-							this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
-								window.location.reload();
-							});
-						}, 1500);
-					},
-				});
-			},500)
-		});
+		this.postQuestions(formData);
 	}
+
+	postQuestions(formData: any) {
+		const questionObs = from(formData.questions).pipe(
+		  concatMap(question => this.quizService.postQuestion(question))
+		);
+	  
+		questionObs.subscribe({
+		  next: (res) => {
+			console.log(`Question posted`);
+		  },
+		  error: (err) => {
+			this.error = true;
+			this.isLoading = false;
+			this.errorMsg = err.statusText;
+		  },
+		  complete: () => {
+			console.log(`All questions posted`);
+			this.isLoading = false;
+			this.error = false;
+			this.success = true;
+			this.getMyQuestions();
+			this.addQuestionForm.reset();
+			this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
+			  window.location.reload();
+			});
+		  },
+		});
+	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 
 	getMyQuestions() {
 		this.quizService.getMyQuestions().subscribe((data: any) => {
@@ -166,6 +179,7 @@ export class QuestionComponent implements OnInit {
 		// 1 = ENTER_DIV
 		// 2 = ENTER_BR
 
+		// enter: 2,
 		enter: 2,
 
 		htmlAllowedEmptyTags: ['mprescripts', 'none'],
@@ -174,7 +188,7 @@ export class QuestionComponent implements OnInit {
 		toolbarSticky: false,
 	};
 
-	onCancelIcon(){
+	onCancelIcon() {
 		this.error = false;
 	}
 }
