@@ -119,15 +119,11 @@ export class QuestionComponent implements OnInit {
 	onSaveQuestions() {
 		this.isLoading = true;
 		let formData = this.addQuestionForm.getRawValue();
-		//this.removeFroalaEditorUnlicensedDiv(formData);
 		this.postQuestions(formData);
 	}
 
 	removeFroalaEditorUnlicensedDiv(singleObject: any) {
-		// str = str.replace(/<p.*?>.*?<\/p>/gi, '');
 		const regex = /<p.*?>.*?<\/p>/gi;
-		// const replace =
-
 		if (singleObject.question) {
 			singleObject.question = singleObject.question.replace(/&amp;lt;/g, '<');
 			singleObject.question = singleObject.question
@@ -138,7 +134,6 @@ export class QuestionComponent implements OnInit {
 				.replace(/&nbsp;/g, ' ')
 				.replace(/&quot;/g, "'")
 				.replace(/Powered by Froala Editor/gi, '');
-			
 		}
 
 		if (singleObject.option) {
@@ -155,16 +150,13 @@ export class QuestionComponent implements OnInit {
 	}
 
 	postQuestions(formData: any) {
-		//const questionObs = from(formData.questions).pipe(concatMap((question) => this.quizService.postQuestion(question)));
 		const questionObs = from(formData.questions).pipe(
 			concatMap((question: any) => {
 				this.removeFroalaEditorUnlicensedDiv(question);
 				question.options.forEach((singleOptionObject: any) => {
 					this.removeFroalaEditorUnlicensedDiv(singleOptionObject);
 				});
-				debugger;
 				const questionData = question;
-				console.log(questionData);
 				return this.quizService.postQuestion(question);
 			})
 		);
@@ -185,9 +177,9 @@ export class QuestionComponent implements OnInit {
 				this.success = true;
 				this.getMyQuestions();
 				this.addQuestionForm.reset();
-				// this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
-				// 	window.location.reload();
-				// });
+				this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
+					window.location.reload();
+				});
 			},
 		});
 	}
