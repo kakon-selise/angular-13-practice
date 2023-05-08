@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { concatMap, from } from 'rxjs';
@@ -25,11 +25,21 @@ export class QuestionComponent implements OnInit {
 	success: boolean = false;
 	successMsg: string = 'Data uploaded successfully';
 
-	constructor(private fb: FormBuilder, private quizService: QuizService, private router: Router) {}
+	constructor(private fb: FormBuilder, private quizService: QuizService, private router: Router, private renderer: Renderer2) {}
+	ngOnInit(): void {
+		//this.removeElement();
+	}
 
 	onFormValueChange() {
 		alert('Done');
 	}
+
+	// removeElement() {
+	// 	const elementToRemove = document.querySelector('.fr-wrapper div:first-of-type');
+	// 	if (elementToRemove) {
+	// 		this.renderer.removeChild(elementToRemove.parentNode, elementToRemove);
+	// 	}
+	// }
 
 	addQuestionForm: FormGroup = this.fb.group({
 		questions: this.fb.array([
@@ -109,11 +119,34 @@ export class QuestionComponent implements OnInit {
 	onSaveQuestions() {
 		this.isLoading = true;
 		let formData = this.addQuestionForm.getRawValue();
+		//this.removeFroalaEditorUnlicensedDiv(formData);
 		this.postQuestions(formData);
 	}
 
+	removeFroalaEditorUnlicensedDiv(singleObject: any) {
+		const searchStr =
+			'&lt;p data-f-id=&quot;pbf&quot; style=&quot;text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;&quot;&gt;Powered by &lt;a href=&quot;https://www.froala.com/wysiwyg-editor?pb=1&quot; title=&quot;Froala Editor&quot;&gt;Froala Editor&lt;/a&gt;&lt;/p&gt;';
+
+		for (let prop in singleObject) {
+			if (singleObject.hasOwnProperty(prop)) {
+				const index = singleObject[prop].indexOf(searchStr);
+				if (index !== -1) {
+					singleObject[prop] = singleObject[prop].substring(0, index) + singleObject[prop].substring(index + searchStr.length);
+				}
+			}
+		}
+	}
+
 	postQuestions(formData: any) {
-		const questionObs = from(formData.questions).pipe(concatMap((question) => this.quizService.postQuestion(question)));
+		//const questionObs = from(formData.questions).pipe(concatMap((question) => this.quizService.postQuestion(question)));
+		const questionObs = from(formData.questions).pipe(concatMap((question:any)=>{
+			this.removeFroalaEditorUnlicensedDiv(question);
+			question.options.forEach((singleOptionObject :any)=>{
+				this.removeFroalaEditorUnlicensedDiv(singleOptionObject);
+			})
+			const questionData = question;
+			return this.quizService.postQuestion(question)
+		}));
 
 		questionObs.subscribe({
 			next: (res) => {
@@ -146,8 +179,6 @@ export class QuestionComponent implements OnInit {
 
 	onAddQuestionSubmit() {}
 
-	ngOnInit(): void {}
-
 	// Set App Title.
 	title = 'Angular froala demo';
 
@@ -167,7 +198,6 @@ export class QuestionComponent implements OnInit {
 		// 0 = ENTER_P
 		// 1 = ENTER_DIV
 		// 2 = ENTER_BR
-
 
 		enter: 2,
 		pastePlain: true,
