@@ -113,41 +113,30 @@ export class QuestionComponent implements OnInit {
 	}
 
 	postQuestions(formData: any) {
-		const questionObs = from(formData.questions).pipe(
-		  concatMap(question => this.quizService.postQuestion(question))
-		);
-	  
+		const questionObs = from(formData.questions).pipe(concatMap((question) => this.quizService.postQuestion(question)));
+
 		questionObs.subscribe({
-		  next: (res) => {
-			console.log(`Question posted`);
-		  },
-		  error: (err) => {
-			this.error = true;
-			this.isLoading = false;
-			this.errorMsg = err.statusText;
-		  },
-		  complete: () => {
-			console.log(`All questions posted`);
-			this.isLoading = false;
-			this.error = false;
-			this.success = true;
-			this.getMyQuestions();
-			this.addQuestionForm.reset();
-			this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
-			  window.location.reload();
-			});
-		  },
+			next: (res) => {
+				console.log(`Question posted`);
+			},
+			error: (err) => {
+				this.error = true;
+				this.isLoading = false;
+				this.errorMsg = err.statusText;
+			},
+			complete: () => {
+				console.log(`All questions posted`);
+				this.isLoading = false;
+				this.error = false;
+				this.success = true;
+				this.getMyQuestions();
+				this.addQuestionForm.reset();
+				this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
+					window.location.reload();
+				});
+			},
 		});
-	  }
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
+	}
 
 	getMyQuestions() {
 		this.quizService.getMyQuestions().subscribe((data: any) => {
@@ -179,11 +168,11 @@ export class QuestionComponent implements OnInit {
 		// 1 = ENTER_DIV
 		// 2 = ENTER_BR
 
-		// enter: 2,
+
 		enter: 2,
+		pastePlain: true,
 
 		htmlAllowedEmptyTags: ['mprescripts', 'none'],
-
 		paragraphFormat: '',
 		toolbarSticky: false,
 	};

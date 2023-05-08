@@ -37,7 +37,7 @@
 			formGroupName="{{ questionId }}"
 		>
 			<div  [froalaEditor]="options"  formControlName="question">
-				<input  type="text" placeholder="Question?" class="option question" />
+				<input #questionRef  type="text" placeholder="Question?" class="option question" />
 			</div>
 
 			<input type="text" placeholder="image url" class="option details" formControlName="image" />
