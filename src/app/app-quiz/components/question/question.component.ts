@@ -27,19 +27,19 @@ export class QuestionComponent implements OnInit {
 
 	constructor(private fb: FormBuilder, private quizService: QuizService, private router: Router, private renderer: Renderer2) {}
 	ngOnInit(): void {
-		//this.removeElement();
+		this.removeElement();
 	}
 
 	onFormValueChange() {
 		alert('Done');
 	}
 
-	// removeElement() {
-	// 	const elementToRemove = document.querySelector('.fr-wrapper div:first-of-type');
-	// 	if (elementToRemove) {
-	// 		this.renderer.removeChild(elementToRemove.parentNode, elementToRemove);
-	// 	}
-	// }
+	removeElement() {
+		const elementToRemove = document.querySelector('.fr-wrapper div:first-of-type');
+		if (elementToRemove) {
+			this.renderer.removeChild(elementToRemove.parentNode, elementToRemove);
+		}
+	}
 
 	addQuestionForm: FormGroup = this.fb.group({
 		questions: this.fb.array([
@@ -124,29 +124,50 @@ export class QuestionComponent implements OnInit {
 	}
 
 	removeFroalaEditorUnlicensedDiv(singleObject: any) {
-		const searchStr =
-			'&lt;p data-f-id=&quot;pbf&quot; style=&quot;text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;&quot;&gt;Powered by &lt;a href=&quot;https://www.froala.com/wysiwyg-editor?pb=1&quot; title=&quot;Froala Editor&quot;&gt;Froala Editor&lt;/a&gt;&lt;/p&gt;';
+		// str = str.replace(/<p.*?>.*?<\/p>/gi, '');
+		const regex = /<p.*?>.*?<\/p>/gi;
+		// const replace =
 
-		for (let prop in singleObject) {
-			if (singleObject.hasOwnProperty(prop)) {
-				const index = singleObject[prop].indexOf(searchStr);
-				if (index !== -1) {
-					singleObject[prop] = singleObject[prop].substring(0, index) + singleObject[prop].substring(index + searchStr.length);
-				}
-			}
+		if (singleObject.question) {
+			singleObject.question = singleObject.question.replace(/&amp;lt;/g, '<');
+			singleObject.question = singleObject.question
+				.replace(/&lt;/g, '<')
+				.replace(/&gt;/g, '>')
+				.replace(/<p[^>]*>(.*?)<\/p>/gi, '')
+				.replace(/<\/?[^>]+(>|$)/g, '')
+				.replace(/&nbsp;/g, ' ')
+				.replace(/&quot;/g, "'")
+				.replace(/Powered by Froala Editor/gi, '');
+			
+		}
+
+		if (singleObject.option) {
+			singleObject.option = singleObject.option.replace(/&amp;lt;/g, '<');
+			singleObject.option = singleObject.option
+				.replace(/&lt;/g, '<')
+				.replace(/&gt;/g, '>')
+				.replace(/<p[^>]*>(.*?)<\/p>/gi, '')
+				.replace(/<\/?[^>]+(>|$)/g, '')
+				.replace(/&nbsp;/g, ' ')
+				.replace(/&quot;/g, "'")
+				.replace(/Powered by Froala Editor/gi, '');
 		}
 	}
 
 	postQuestions(formData: any) {
 		//const questionObs = from(formData.questions).pipe(concatMap((question) => this.quizService.postQuestion(question)));
-		const questionObs = from(formData.questions).pipe(concatMap((question:any)=>{
-			this.removeFroalaEditorUnlicensedDiv(question);
-			question.options.forEach((singleOptionObject :any)=>{
-				this.removeFroalaEditorUnlicensedDiv(singleOptionObject);
+		const questionObs = from(formData.questions).pipe(
+			concatMap((question: any) => {
+				this.removeFroalaEditorUnlicensedDiv(question);
+				question.options.forEach((singleOptionObject: any) => {
+					this.removeFroalaEditorUnlicensedDiv(singleOptionObject);
+				});
+				debugger;
+				const questionData = question;
+				console.log(questionData);
+				return this.quizService.postQuestion(question);
 			})
-			const questionData = question;
-			return this.quizService.postQuestion(question)
-		}));
+		);
 
 		questionObs.subscribe({
 			next: (res) => {
@@ -164,9 +185,9 @@ export class QuestionComponent implements OnInit {
 				this.success = true;
 				this.getMyQuestions();
 				this.addQuestionForm.reset();
-				this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
-					window.location.reload();
-				});
+				// this.router.navigateByUrl('/quiz', { replaceUrl: true }).then(() => {
+				// 	window.location.reload();
+				// });
 			},
 		});
 	}
@@ -211,3 +232,16 @@ export class QuestionComponent implements OnInit {
 		this.error = false;
 	}
 }
+
+// Working regex
+
+// let str = 'fdffdf fdfdfdfdf&amp;nbsp;&amp;lt;p data-f-id=&amp;quot;pbf&amp;quot; style=&amp;quot;text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;&amp;quot;&amp;gt;Powered by &amp;lt;a href=&amp;quot;https://www.froala.com/wysiwyg-editor?pb=1&amp;quot; title=&amp;quot;Froala Editor&amp;quot;&amp;gt;Froala Editor&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;>&amp;lt;msqrt>&amp;lt;mi>d&amp;lt;/mi>&amp;lt;mi>f&amp;lt;/mi>&amp;lt;mi>g&amp;lt;/mi>&amp;lt;mi>d&amp;lt;/mi>&amp;lt;mi>f&amp;lt;/mi>&amp;lt;mi>d&amp;lt;/mi>&amp;lt;mi>f&amp;lt;/mi>&amp;lt;mi>d&amp;lt;/mi>&amp;lt;/msqrt>&amp;lt;/math>&amp;lt;p data-f-id=&quot;pbf&quot; style=&quot;text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;&quot;>Powered by &amp;lt;a href=&quot;https://www.froala.com/wysiwyg-editor?pb=1&quot; title=&quot;Froala Editor&quot;>Froala Editor&amp;lt;/a>&amp;lt;/p"';
+
+// str = str.replace(/&amp;lt;/g, "<");
+// str = str.replace(/&lt;/g, "<")
+//          .replace(/&gt;/g, ">")
+//          .replace(/<p[^>]*>(.*?)<\/p>/gi, "")
+//          .replace(/<\/?[^>]+(>|$)/g, "")
+//          .replace(/&nbsp;/g, " ")
+//          .replace(/&quot;/g, "'")
+// 		.replace(/Powered by Froala Editor/gi, "");
