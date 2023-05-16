@@ -223,6 +223,18 @@ export class QuestionComponent implements OnInit {
 	onCancelIcon() {
 		this.error = false;
 	}
+
+	ngDoCheck(){
+		this.removeFroalaEditor();
+	}
+	removeFroalaEditor(){
+		var element = document.querySelector('[data-f-id="pbf"]');
+		if (element && element.parentNode) {
+		element.parentNode.removeChild(element);
+		}
+
+
+	}
 }
 
 // Working regex
